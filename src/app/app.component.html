@@ -1,3 +1,26 @@
-<h1>
-  {{title}}
-</h1>
+<div id="registerdiv">
+  <h1>Registration Form</h1>
+  <hr/>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmitForm()">
+    
+    <label for="lname">Name</label>
+    <input type="text" id="fname" #refName placeholder="Your  name.." formControlName="name">
+      <div *ngIf="registrationForm.controls['name'].hasError('required')"> Please enter name</div>
+      <div *ngIf="registrationForm.controls['name'].hasError('minlength')"> Please enter minimum 4 characters</div>
+      <div *ngIf="registrationForm.controls['name'].hasError('maxlength')"> Maximum 10 characters</div>
+    <label for="lemail">Email</label>
+    <input type="text" id="femail" name="email" placeholder="Your email.." formControlName="email">
+    <label for="lphone">Phone</label>
+    <input type="text" id="fphone" name="phone" placeholder="Your phone number.." formControlName="phone">
+    <div formGroupName = "address">
+        <label for="lstreet">Street</label>
+        <input type="text" id="fstreet" name="street" placeholder="Your street.." formControlName="street">
+        <label for="lcity">City</label>
+        <input type="text" id="fcity" name="city" placeholder="Your city.." formControlName="city">
+        <label for="lzip">Zip</label>
+        <input type="text" id="fzip" name="zip" placeholder="Enter zip.." formControlName="zip"> 
+        <div *ngIf="registrationForm.controls['address'].controls['zip'].hasError('pattern')"> Zip formate 5 digits</div>
+    </div>
+    <input type="submit" [disabled]="registrationForm.invalid" value="Submit">
+  </form>
+</div>
